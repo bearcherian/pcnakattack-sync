@@ -1,0 +1,13 @@
+tags: []
+database:
+  hostname: localhost:3306
+  database:
+  username:
+  password:
+twitter:
+  consumerKey:
+  consumerSecret:
+  token:
+  secret:
+youtube:
+  apiKey:
