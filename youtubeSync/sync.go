@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"strings"
+	"time"
 )
 
 var appCfg config.Config
@@ -54,7 +55,7 @@ func getSearchResponse(ytService *youtube.Service, query string, ignoreLast bool
 
 	if !ignoreLast {
 		publishedAtTime := GetLatestPublishedDate(appCfg)
-		call.PublishedAfter(publishedAtTime.Format(TIME_LAYOUT))
+		call.PublishedAfter(publishedAtTime.Add(time.Second).Format(TIME_LAYOUT))
 	}
 
 	if nextPageToken != "" {
