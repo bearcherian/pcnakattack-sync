@@ -30,3 +30,9 @@ func GetClient(cfg config.Config) *sql.DB {
 
 	return connection
 }
+
+func Close() {
+	if connection != nil {
+		connection.Close();
+	}
+}
