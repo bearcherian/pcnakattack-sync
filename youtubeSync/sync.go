@@ -33,7 +33,7 @@ func sync(ignoreLast bool, cfg config.AppConfig) {
 	for hasNextPage {
 		response := getSearchResponse(ytService, strings.Join(appCfg.Tags, "|"), ignoreLast, nextPageToken)
 		for i, item := range response.Items {
-			log.Printf("%v:\t%v\n", i, item)
+			log.Printf("Adding %v:\t%v\n", i, item)
 			AddNewYoutube(item, getProfileUrl(item, client), appCfg)
 		}
 
@@ -61,8 +61,6 @@ func getSearchResponse(ytService *youtube.Service, query string, ignoreLast bool
 	if nextPageToken != "" {
 		call.PageToken(nextPageToken)
 	}
-
-	log.Println(call)
 
 	response, err := call.Do()
 	if err != nil {

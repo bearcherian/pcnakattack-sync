@@ -24,11 +24,10 @@ type DatabaseConfig struct {
 }
 
 type AppConfig struct {
-	Tags    []string      `yaml:"tags"`
+	Tags     []string       `yaml:"tags"`
 	Database DatabaseConfig `yaml:"database"`
-	Twitter TwitterConfig `yaml:"twitter"`
-	YouTube YouTubeConfig `yaml:"youtube"`
-
+	Twitter  TwitterConfig  `yaml:"twitter"`
+	YouTube  YouTubeConfig  `yaml:"youtube"`
 }
 
 func GetConfig() AppConfig {

@@ -1,9 +1,9 @@
 package twitterSync
 
 import (
+	"database/sql"
 	"github.com/bearcherian/pcnakattackSync/config"
 	"github.com/bearcherian/pcnakattackSync/db"
-	"database/sql"
 	"github.com/dghubble/go-twitter/twitter"
 	"log"
 	"time"

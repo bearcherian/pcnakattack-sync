@@ -2,7 +2,6 @@ package twitterSync
 
 import (
 	"github.com/bearcherian/pcnakattackSync/config"
-	"fmt"
 	"github.com/dghubble/go-twitter/twitter"
 	"github.com/dghubble/oauth1"
 	"log"
@@ -21,7 +20,6 @@ func sync(ignoreLast bool, cfg config.AppConfig) {
 	httpClient := twitterConfig.Client(oauth1.NoContext, token)
 
 	client := twitter.NewClient(httpClient)
-	fmt.Println(client)
 
 	// query twitter
 	searchParams := &twitter.SearchTweetParams{
@@ -30,7 +28,7 @@ func sync(ignoreLast bool, cfg config.AppConfig) {
 
 	if !ignoreLast {
 		searchParams.SinceID = getLatestId()
-		fmt.Printf("SinceID: %d\n", searchParams.SinceID)
+		log.Printf("SinceID: %d\n", searchParams.SinceID)
 	}
 
 	search, _, err := client.Search.Tweets(searchParams)
@@ -41,7 +39,7 @@ func sync(ignoreLast bool, cfg config.AppConfig) {
 
 	// load to db
 	for _, tweet := range search.Statuses {
-		fmt.Printf("Adding tweet %s\n", tweet)
+		log.Printf("Adding tweet %s\n", tweet)
 		AddNewTweet(tweet, appCfg)
 	}
 }
