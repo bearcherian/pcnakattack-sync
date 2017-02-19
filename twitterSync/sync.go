@@ -9,18 +9,18 @@ import (
 	"strings"
 )
 
-var appCfg config.Config
+var appCfg config.AppConfig
 
-func sync(ignoreLast bool, cfg config.Config) {
+func sync(ignoreLast bool, cfg config.AppConfig) {
 
 	appCfg = cfg
 
 	// init twitter
 	twitterConfig := oauth1.NewConfig(appCfg.Twitter.ConsumerKey, appCfg.Twitter.ConsumerSecret)
 	token := oauth1.NewToken(appCfg.Twitter.Token, appCfg.Twitter.Secret)
-	httpCLient := twitterConfig.Client(oauth1.NoContext, token)
+	httpClient := twitterConfig.Client(oauth1.NoContext, token)
 
-	client := twitter.NewClient(httpCLient)
+	client := twitter.NewClient(httpClient)
 	fmt.Println(client)
 
 	// query twitter
@@ -46,11 +46,11 @@ func sync(ignoreLast bool, cfg config.Config) {
 	}
 }
 
-func SyncAll(cfg config.Config) {
+func SyncAll(cfg config.AppConfig) {
 	sync(true, cfg)
 }
 
-func SyncLatest(cfg config.Config) {
+func SyncLatest(cfg config.AppConfig) {
 	sync(false, cfg)
 }
 

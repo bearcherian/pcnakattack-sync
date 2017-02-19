@@ -10,12 +10,12 @@ import (
 	"time"
 )
 
-var appCfg config.Config
+var appCfg config.AppConfig
 
 const MAX_RESULTS = 50
 const TIME_LAYOUT = "2006-01-02T03:04:05Z"
 
-func sync(ignoreLast bool, cfg config.Config) {
+func sync(ignoreLast bool, cfg config.AppConfig) {
 	appCfg = cfg
 
 	client := &http.Client{
@@ -90,10 +90,10 @@ func getProfileUrl(item *youtube.SearchResult, client *http.Client) string {
 	return response.Items[0].Snippet.Thumbnails.Default.Url
 }
 
-func SyncAll(cfg config.Config) {
+func SyncAll(cfg config.AppConfig) {
 	sync(true, cfg)
 }
 
-func SyncLatest(cfg config.Config) {
+func SyncLatest(cfg config.AppConfig) {
 	sync(false, cfg)
 }

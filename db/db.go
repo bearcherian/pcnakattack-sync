@@ -10,7 +10,7 @@ import (
 
 var connection *sql.DB
 
-func GetClient(cfg config.Config) *sql.DB {
+func GetClient(cfg config.AppConfig) *sql.DB {
 	if connection == nil {
 		var dsn bytes.Buffer
 		dsn.WriteString(cfg.Database.Username)
@@ -33,6 +33,6 @@ func GetClient(cfg config.Config) *sql.DB {
 
 func Close() {
 	if connection != nil {
-		connection.Close();
+		connection.Close()
 	}
 }

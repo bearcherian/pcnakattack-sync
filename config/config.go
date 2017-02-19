@@ -23,7 +23,7 @@ type DatabaseConfig struct {
 	Password string `yaml:"password"`
 }
 
-type Config struct {
+type AppConfig struct {
 	Tags    []string      `yaml:"tags"`
 	Database DatabaseConfig `yaml:"database"`
 	Twitter TwitterConfig `yaml:"twitter"`
@@ -31,8 +31,8 @@ type Config struct {
 
 }
 
-func GetConfig() Config {
-	cfg := Config{}
+func GetConfig() AppConfig {
+	cfg := AppConfig{}
 
 	// read yaml
 	yamlFile, err := ioutil.ReadFile("config.yaml")

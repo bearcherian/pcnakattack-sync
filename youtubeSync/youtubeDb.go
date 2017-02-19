@@ -13,7 +13,7 @@ const INSERT_NEW = "INSERT INTO youtube(id,publishedAt,title,description,thumbna
 const VIDEO_LINK_PREFIX = "https://www.youtube.com/watch?v="
 const YT_DATE_LAYOUT = "2006-01-02T15:04:05.000Z"
 
-func GetLatestPublishedDate(cfg config.Config) time.Time {
+func GetLatestPublishedDate(cfg config.AppConfig) time.Time {
 	dbConn := db.GetClient(cfg)
 
 	rows, err := dbConn.Query(SELECT_LATEST_DATE)
@@ -29,7 +29,7 @@ func GetLatestPublishedDate(cfg config.Config) time.Time {
 
 }
 
-func AddNewYoutube(searchResponse *youtube.SearchResult, profileImageUrl string, cfg config.Config) {
+func AddNewYoutube(searchResponse *youtube.SearchResult, profileImageUrl string, cfg config.AppConfig) {
 	// id,publishedAt,title,description,thumbnail_default,thumbnail_medium,thumbnail_high,
 	// channel_id,channelTitle,authorName,link,profile_picture
 
