@@ -1,7 +1,6 @@
 package youtubeSync
 
 import (
-	"github.com/bearcherian/pcnakattackSync/config"
 	"github.com/bearcherian/pcnakattackSync/db"
 	"google.golang.org/api/youtube/v3"
 	"log"
@@ -13,8 +12,8 @@ const INSERT_NEW = "INSERT INTO youtube(id,publishedAt,title,description,thumbna
 const VIDEO_LINK_PREFIX = "https://www.youtube.com/watch?v="
 const YT_DATE_LAYOUT = "2006-01-02T15:04:05.000Z"
 
-func GetLatestPublishedDate(cfg config.AppConfig) time.Time {
-	dbConn := db.GetClient(cfg)
+func GetLatestPublishedDate() time.Time {
+	dbConn := db.GetClient()
 
 	rows, err := dbConn.Query(SELECT_LATEST_DATE)
 	if err != nil {
@@ -29,7 +28,7 @@ func GetLatestPublishedDate(cfg config.AppConfig) time.Time {
 
 }
 
-func AddNewYoutube(searchResponse *youtube.SearchResult, profileImageUrl string, cfg config.AppConfig) {
+func AddNewYoutube(searchResponse *youtube.SearchResult, profileImageUrl string) {
 	// id,publishedAt,title,description,thumbnail_default,thumbnail_medium,thumbnail_high,
 	// channel_id,channelTitle,authorName,link,profile_picture
 
@@ -39,7 +38,7 @@ func AddNewYoutube(searchResponse *youtube.SearchResult, profileImageUrl string,
 		return
 	}
 
-	dbConn := db.GetClient(cfg)
+	dbConn := db.GetClient()
 
 	var videoLinkUrl = VIDEO_LINK_PREFIX + searchResponse.Id.VideoId
 

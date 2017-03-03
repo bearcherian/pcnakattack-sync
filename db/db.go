@@ -1,16 +1,17 @@
 package db
 
 import (
-	"github.com/bearcherian/pcnakattackSync/config"
 	"bytes"
 	"database/sql"
+	"github.com/bearcherian/pcnakattackSync/config"
 	_ "github.com/go-sql-driver/mysql"
 	"log"
 )
 
 var connection *sql.DB
 
-func GetClient(cfg config.AppConfig) *sql.DB {
+func GetClient() *sql.DB {
+	cfg := config.GetConfig()
 	if connection == nil {
 		var dsn bytes.Buffer
 		dsn.WriteString(cfg.Database.Username)

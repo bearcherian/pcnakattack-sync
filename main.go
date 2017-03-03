@@ -13,10 +13,10 @@ import (
 func main() {
 	cfg := config.GetConfig()
 	// init db connection
-	db.GetClient(cfg)
+	db.GetClient()
 	defer db.Close()
 
-	logFile, err := os.OpenFile("pcnakattack.log", os.O_RDWR | os.O_CREATE | os.O_APPEND, 0666)
+	logFile, err := os.OpenFile("pcnakattack.log", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
 	if err != nil {
 		fmt.Println("Unable to open file")
 		fmt.Println(err)
@@ -29,4 +29,7 @@ func main() {
 
 	log.Println("Syncing YouTube...")
 	youtubeSync.SyncLatest(cfg)
+
+	log.Println("Done!")
+
 }

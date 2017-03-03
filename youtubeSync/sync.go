@@ -34,7 +34,7 @@ func sync(ignoreLast bool, cfg config.AppConfig) {
 		response := getSearchResponse(ytService, strings.Join(appCfg.Tags, "|"), ignoreLast, nextPageToken)
 		for i, item := range response.Items {
 			log.Printf("Adding %v:\t%v\n", i, item)
-			AddNewYoutube(item, getProfileUrl(item, client), appCfg)
+			AddNewYoutube(item, getProfileUrl(item, client))
 		}
 
 		if response.NextPageToken != "" {
@@ -54,7 +54,7 @@ func getSearchResponse(ytService *youtube.Service, query string, ignoreLast bool
 		Type("video")
 
 	if !ignoreLast {
-		publishedAtTime := GetLatestPublishedDate(appCfg)
+		publishedAtTime := GetLatestPublishedDate()
 		call.PublishedAfter(publishedAtTime.Add(time.Second).Format(TIME_LAYOUT))
 	}
 

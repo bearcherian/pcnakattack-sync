@@ -3,6 +3,7 @@ package config
 import (
 	"gopkg.in/yaml.v2"
 	"io/ioutil"
+	"log"
 )
 
 type YouTubeConfig struct {
@@ -28,18 +29,27 @@ type AppConfig struct {
 	Database DatabaseConfig `yaml:"database"`
 	Twitter  TwitterConfig  `yaml:"twitter"`
 	YouTube  YouTubeConfig  `yaml:"youtube"`
+	loaded   bool
 }
 
+var cfg AppConfig
+
 func GetConfig() AppConfig {
-	cfg := AppConfig{}
 
-	// read yaml
-	yamlFile, err := ioutil.ReadFile("config.yaml")
-	if err != nil {
-		panic(err)
+	if !cfg.loaded {
+		cfg = AppConfig{}
+
+		// read yaml
+		yamlFile, err := ioutil.ReadFile("config.yaml")
+		if err != nil {
+			panic(err)
+		}
+
+		yaml.Unmarshal(yamlFile, &cfg)
+		cfg.loaded = true
+		log.Println("Config loaded")
+		log.Printf("Tags: %v", cfg.Tags)
 	}
-
-	yaml.Unmarshal(yamlFile, &cfg)
 
 	return cfg
 }

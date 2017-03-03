@@ -2,7 +2,6 @@ package twitterSync
 
 import (
 	"database/sql"
-	"github.com/bearcherian/pcnakattackSync/config"
 	"github.com/bearcherian/pcnakattackSync/db"
 	"github.com/dghubble/go-twitter/twitter"
 	"log"
@@ -13,8 +12,8 @@ const SELECT_LAST_TWEET_ID string = "SELECT id FROM tweets ORDER BY id DESC LIMI
 const INSERT_NEW_TWEET string = "INSERT INTO tweets(id,created_at,text,user_id,user_name,user_screen_name,user_profile_image_url_https,media_type,media_url_https) VALUES(?,?,?,?,?,?,?,?,?)"
 const TIME_LAYOUT string = "Mon Jan 02 15:04:05 -0700 2006"
 
-func GetLatestTwitterId(cfg config.AppConfig) int64 {
-	dbConn := db.GetClient(cfg)
+func GetLatestTwitterId() int64 {
+	dbConn := db.GetClient()
 
 	rows, err := dbConn.Query(SELECT_LAST_TWEET_ID)
 	if err != nil {
@@ -29,8 +28,8 @@ func GetLatestTwitterId(cfg config.AppConfig) int64 {
 	return id
 }
 
-func AddNewTweet(tweet twitter.Tweet, cfg config.AppConfig) {
-	dbConn := db.GetClient(cfg)
+func AddNewTweet(tweet twitter.Tweet) {
+	dbConn := db.GetClient()
 
 	var mediaType sql.NullString
 	var mediaUrl sql.NullString

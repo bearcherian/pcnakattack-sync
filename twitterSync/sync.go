@@ -40,7 +40,7 @@ func sync(ignoreLast bool, cfg config.AppConfig) {
 	// load to db
 	for _, tweet := range search.Statuses {
 		log.Printf("Adding tweet %s\n", tweet)
-		AddNewTweet(tweet, appCfg)
+		AddNewTweet(tweet)
 	}
 }
 
@@ -53,5 +53,5 @@ func SyncLatest(cfg config.AppConfig) {
 }
 
 func getLatestId() int64 {
-	return GetLatestTwitterId(appCfg)
+	return GetLatestTwitterId()
 }
