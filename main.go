@@ -1,13 +1,14 @@
 package main
 
 import (
+	"fmt"
 	"github.com/bearcherian/pcnakattackSync/config"
 	"github.com/bearcherian/pcnakattackSync/db"
+	"github.com/bearcherian/pcnakattackSync/instagramSync"
 	"github.com/bearcherian/pcnakattackSync/twitterSync"
 	"github.com/bearcherian/pcnakattackSync/youtubeSync"
 	"log"
 	"os"
-	"fmt"
 )
 
 func main() {
@@ -23,6 +24,9 @@ func main() {
 	}
 
 	log.SetOutput(logFile)
+
+	log.Println("Syncing Instagram...")
+	instagramSync.SyncLatest()
 
 	log.Println("Syncing Twitter...")
 	twitterSync.SyncLatest(cfg)
